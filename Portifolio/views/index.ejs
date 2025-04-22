@@ -1,0 +1,259 @@
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <h1 data-aos="fade-up" data-aos-duration="1000">
+            Olá, eu sou <span class="highlight"><%= data.name %></span>
+        </h1>
+        <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+            <span id="typed-text"></span>
+        </p>
+        <div class="cta-buttons" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+            <a href="#portfolio" class="btn primary"><%= data.translation.viewWork %></a>
+            <a href="#contact" class="btn secondary"><%= data.translation.contactMe %></a>
+        </div>
+        <div class="social-icons" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+            <a href="<%= data.social.github %>" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="<%= data.social.linkedin %>" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="<%= data.social.twitter %>" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="<%= data.social.instagram %>" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="hero-mouse-scroll">
+        <div class="mouse">
+            <div class="wheel"></div>
+        </div>
+        <div>
+            <span class="mouse-arrow arrow-1"></span>
+            <span class="mouse-arrow arrow-2"></span>
+        </div>
+    </div>
+    <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100"><%= data.translation.aboutMe %></h2>
+        </div>
+        <div class="about-content">
+            <div class="about-img" data-aos="fade-right" data-aos-duration="1000">
+                <div class="img-container">
+                    <img src="/images/profile.jpg" alt="Foto de Perfil">
+                </div>
+            </div>
+            <div class="about-text" data-aos="fade-left" data-aos-duration="1000">
+                <h3><%= data.translation.whoAmI %></h3>
+                <p><%= data.about %></p>
+                
+                <h3><%= data.translation.mySkills %></h3>
+                <div class="skills">
+                    <% data.skills.forEach(function(skill) { %>
+                        <div class="skill">
+                            <div class="skill-info">
+                                <span><%= skill.name %></span>
+                                <span class="percent"><%= skill.level %>%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-width="<%= skill.level %>%"></div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+                
+                <a href="#" class="btn primary"><%= data.translation.downloadCV %></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services">
+    <div class="container">
+        <div class="section-header">   
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100"><%= data.translation.myServices %></h2>
+        </div>
+        <div class="services-grid">
+            <% data.services.forEach(function(service, index) { %>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+                    <div class="icon-wrapper">
+                        <i class="fas <%= service.icon %>"></i>
+                    </div>
+                    <h3><%= service.title %></h3>
+                    <p><%= service.description %></p>
+                    <div class="service-hover">
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100"><%= data.translation.myWork %></h2>
+        </div>
+        <div class="filter-buttons" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all"><%= data.translation.allProjects %></button>
+            <button class="filter-btn" data-filter="web"><%= data.translation.webProjects %></button>
+            <button class="filter-btn" data-filter="app"><%= data.translation.appProjects %></button>
+            <button class="filter-btn" data-filter="design"><%= data.translation.designProjects %></button>
+        </div>
+        <div class="portfolio-grid">
+            <% data.projects.forEach(function(project, index) { %>
+                <div class="portfolio-item" data-category="<%= project.category %>" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+                    <img src="/images/<%= project.image %>" alt="<%= project.title %>">
+                    <div class="portfolio-overlay">
+                        <div class="content">
+                            <span class="category"><%= project.description %></span>
+                            <h3><%= project.title %></h3>
+                            <a href="#" class="portfolio-link"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="testimonial-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">O que meus clientes dizem</h2>
+        </div>
+        <div class="testimonial-slider swiper" data-aos="fade-up">
+            <div class="swiper-wrapper">
+                <div class="testimonial-item swiper-slide">
+                    <div class="testimonial-content">
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>Um profissional excepcional! Desenvolveu nossa API de processamento de pagamentos com excelente performance e segurança. A documentação e a arquitetura bem estruturada facilitaram muito a integração.</p>
+                        <div class="client-info">
+                            <div class="client-img">
+                                <img src="/images/testimonial1.svg" alt="Cliente 1">
+                            </div>
+                            <div class="client-details">
+                                <h4>João Silva</h4>
+                                <span>CTO, FinTech Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item swiper-slide">
+                    <div class="testimonial-content">
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>Ruan implementou um sistema de análise de dados que transformou completamente nossa tomada de decisão. O pipeline de dados automatizado e o dashboard analítico proporcionaram insights valiosos para o nosso negócio.</p>
+                        <div class="client-info">
+                            <div class="client-img">
+                                <img src="/images/testimonial2.svg" alt="Cliente 2">
+                            </div>
+                            <div class="client-details">
+                                <h4>Maria Oliveira</h4>
+                                <span>Diretora de Dados, Analytics Corp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item swiper-slide">
+                    <div class="testimonial-content">
+                        <div class="quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p>A migração e otimização do nosso banco de dados realizada pelo Ruan melhorou drasticamente a performance do nosso sistema. O tempo de resposta das consultas foi reduzido em mais de 70%, e a arquitetura escalável permite crescimento futuro.</p>
+                        <div class="client-info">
+                            <div class="client-img">
+                                <img src="/images/testimonial3.svg" alt="Cliente 3">
+                            </div>
+                            <div class="client-details">
+                                <h4>Carlos Santos</h4>
+                                <span>VP de Tecnologia, DataSys</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Counter Section -->
+<section class="counter-section">
+    <div class="container">
+        <div class="counters">
+            <div class="counter" data-aos="fade-up">
+                <i class="fas fa-check-circle"></i>
+                <div class="counter-number" data-count="125">0</div>
+                <h3><%= data.translation.projectsCompleted %></h3>
+            </div>
+            <div class="counter" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-users"></i>
+                <div class="counter-number" data-count="84">0</div>
+                <h3><%= data.translation.happyClients %></h3>
+            </div>
+            <div class="counter" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-award"></i>
+                <div class="counter-number" data-count="15">0</div>
+                <h3><%= data.translation.awardsWon %></h3>
+            </div>
+            <div class="counter" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-coffee"></i>
+                <div class="counter-number" data-count="1250">0</div>
+                <h3><%= data.translation.coffeesCups %></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100"><%= data.translation.contactTitle %></h2>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info" data-aos="fade-right" data-aos-duration="1000">
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p><%= data.contact.email %></p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Telefone</h3>
+                        <p><%= data.contact.phone %></p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Localização</h3>
+                        <p><%= data.contact.location %></p>
+                    </div>
+                </div>
+                
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d467692.0488525747!2d-46.92498792246954!3d-23.681434454521447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce448183a461d1%3A0x9ba94b08ff335bae!2zU8OjbyBQYXVsbywgU1A!5e0!3m2!1spt-BR!2sbr!4v1690390241051!5m2!1spt-BR!2sbr" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %> 

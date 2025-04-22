@@ -1,0 +1,8 @@
+Please add the following images to this folder:
+
+1. hero-bg.jpg - A background image for the hero section
+2. counter-bg.jpg - A background image for the counter section
+3. profile.jpg - Your profile photo
+4. project1.jpg through project6.jpg - Images for your portfolio projects
+
+The website will work without these images, but adding them will make it look much better! 

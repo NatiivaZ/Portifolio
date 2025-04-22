@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Imagens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #4361EE;
+        }
+        .canvas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            background-color: white;
+            max-width: 100%;
+        }
+        .image-info {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+        .download-btn {
+            display: block;
+            margin: 5px auto;
+            padding: 5px 10px;
+            background-color: #4361EE;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        .download-all {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #3F37C9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .instructions {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Imagens para o Projeto</h1>
+        
+        <div class="instructions">
+            <h2>Instruções:</h2>
+            <ol>
+                <li>As imagens abaixo foram geradas para seu projeto.</li>
+                <li>Clique no botão "Baixar" abaixo de cada imagem para salvá-la.</li>
+                <li>Coloque todas as imagens baixadas na pasta <code>public/images</code> do seu projeto.</li>
+                <li>Você também pode clicar em "Baixar Todas" para baixar todas as imagens de uma vez (pode não funcionar em todos os navegadores).</li>
+            </ol>
+        </div>
+        
+        <div class="canvas-container" id="canvas-container">
+            <!-- Canvas elements will be generated here -->
+        </div>
+        
+        <button id="download-all" class="download-all">Baixar Todas as Imagens</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurações das imagens
+            const images = [
+                { name: 'project1.jpg', width: 800, height: 600, color: '#4361EE', text: 'Project 1' },
+                { name: 'project2.jpg', width: 800, height: 600, color: '#4CC9F0', text: 'Project 2' },
+                { name: 'project3.jpg', width: 800, height: 600, color: '#3F37C9', text: 'Project 3' },
+                { name: 'project4.jpg', width: 800, height: 600, color: '#4361EE', text: 'Project 4' },
+                { name: 'project5.jpg', width: 800, height: 600, color: '#4CC9F0', text: 'Project 5' },
+                { name: 'project6.jpg', width: 800, height: 600, color: '#3F37C9', text: 'Project 6' },
+                { name: 'testimonial1.jpg', width: 300, height: 300, color: '#4361EE', text: 'Testimonial 1' },
+                { name: 'testimonial2.jpg', width: 300, height: 300, color: '#4CC9F0', text: 'Testimonial 2' },
+                { name: 'testimonial3.jpg', width: 300, height: 300, color: '#3F37C9', text: 'Testimonial 3' },
+                { name: 'hero-bg.jpg', width: 1200, height: 600, color: '#333333', text: 'Hero Background' },
+                { name: 'counter-bg.jpg', width: 1200, height: 600, color: '#333333', text: 'Counter Background' },
+                { name: 'profile.jpg', width: 400, height: 400, color: '#4361EE', text: 'Profile' },
+                { name: 'favicon.png', width: 32, height: 32, color: '#4361EE', text: 'F' }
+            ];
+            
+            const containerElement = document.getElementById('canvas-container');
+            
+            // Para cada imagem na lista
+            images.forEach(img => {
+                // Criar um container para a imagem
+                const imgContainer = document.createElement('div');
+                
+                // Criar o canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                canvas.style.width = Math.min(img.width, 400) + 'px';
+                canvas.style.height = 'auto';
+                
+                // Desenhar no canvas
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = img.color;
+                ctx.fillRect(0, 0, img.width, img.height);
+                
+                // Adicionar texto
+                ctx.fillStyle = 'white';
+                ctx.font = `bold ${img.width * 0.08}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(img.text, img.width / 2, img.height / 2);
+                
+                // Adicionar informações sobre a imagem
+                const imageInfo = document.createElement('div');
+                imageInfo.className = 'image-info';
+                imageInfo.textContent = `${img.name} (${img.width}x${img.height})`;
+                
+                // Criar o botão de download
+                const downloadLink = document.createElement('a');
+                downloadLink.className = 'download-btn';
+                downloadLink.textContent = 'Baixar';
+                downloadLink.addEventListener('click', function() {
+                    // Para PNG
+                    if (img.name.endsWith('.png')) {
+                        downloadLink.href = canvas.toDataURL('image/png');
+                    }
+                    // Para JPG
+                    else {
+                        downloadLink.href = canvas.toDataURL('image/jpeg', 0.9);
+                    }
+                    
+                    downloadLink.download = img.name;
+                });
+                
+                // Adicionar elementos ao container
+                imgContainer.appendChild(canvas);
+                imgContainer.appendChild(imageInfo);
+                imgContainer.appendChild(downloadLink);
+                
+                // Adicionar container à página
+                containerElement.appendChild(imgContainer);
+            });
+            
+            // Botão para baixar todas as imagens
+            document.getElementById('download-all').addEventListener('click', function() {
+                const canvases = document.querySelectorAll('canvas');
+                
+                canvases.forEach((canvas, index) => {
+                    const imgData = images[index].name.endsWith('.png') ? 
+                        canvas.toDataURL('image/png') : 
+                        canvas.toDataURL('image/jpeg', 0.9);
+                    
+                    const link = document.createElement('a');
+                    link.href = imgData;
+                    link.download = images[index].name;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Pequeno atraso para evitar problemas com múltiplos downloads
+                    setTimeout(() => {}, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
